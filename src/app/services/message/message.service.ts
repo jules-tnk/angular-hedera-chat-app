@@ -1,15 +1,18 @@
 import { Injectable } from '@angular/core';
 import {Message} from "../../models/chat";
+import {AuthService} from "../auth/auth.service";
 
 @Injectable({
   providedIn: 'root'
 })
 export class MessageService {
-MESSAGE_STORAGE_KEY = 'messages';
+  MESSAGE_STORAGE_KEY = 'messages';
 
   messages: Message[] = [];
 
-  constructor() {
+  constructor(
+    private authService: AuthService
+  ) {
     this.saveMessagesInLocalStorage();
   }
 
@@ -31,7 +34,7 @@ MESSAGE_STORAGE_KEY = 'messages';
 
   sendMessage(content: string, tag: string) {
     let message = {
-      accountId: 'current account id',
+      accountId: this.authService.getAccountInfo().accountId,
       content: content,
       tag: tag,
       time: new Date().toLocaleTimeString()

@@ -4,27 +4,52 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class AuthService {
-
+  ACCOUNT_STORAGE_KEY = 'account';
   constructor() { }
 
-  loggedIn: boolean = false;
-  accountId: string = "";
+  accountInfo = {
+    isLoggedIn: false,
+    accountId: '',
+    privateKey: '',
+    publicKey: ''
+  }
 
-  login(accountId: string): boolean {
-    // You can implement your own authentication logic here
-    // For simplicity, let's assume any non-empty accountId is considered valid
-    if (accountId) {
-      this.loggedIn = true;
-      this.accountId = accountId;
-      return true;
-    } else {
-      return false;
+  login(accountId: string, privateKey: string, publicKey: string): boolean {
+    this.accountInfo ={
+      isLoggedIn: true,
+      accountId: accountId,
+      privateKey: privateKey,
+      publicKey: publicKey
+    }
+    this.saveAccountInfoInLocalStorage();
+    return true;
+  }
+
+  logout(): boolean {
+    this.accountInfo = {
+      isLoggedIn: false,
+      accountId: '',
+      privateKey: '',
+      publicKey: ''
+    }
+    this.saveAccountInfoInLocalStorage();
+    return true;
+  }
+
+  saveAccountInfoInLocalStorage() {
+    JSON.stringify(this.accountInfo)
+  }
+
+  loadAccountInfoFromLocalStorage() {
+    const storedAccountInfo = localStorage.getItem(this.ACCOUNT_STORAGE_KEY);
+    if (storedAccountInfo) {
+      this.accountInfo = JSON.parse(storedAccountInfo);
     }
   }
 
-  logout(): void {
-    this.loggedIn = false;
-    this.accountId = '';
+  getAccountInfo() {
+    this.loadAccountInfoFromLocalStorage();
+    return this.accountInfo
   }
 
 }

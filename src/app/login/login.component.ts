@@ -16,10 +16,13 @@ export class LoginComponent {
   }
 
   login(): void {
-    if (this.authService.login(this.accountId)) {
+    let loginSuccess: boolean = this.authService.login(this.accountId, this.privateKey, this.publicKey);
+
+    if (loginSuccess) {
       this.router.navigate(['/chat']);
-    } else {
-      // Handle login failure
+    }else {
+      alert("Login failed");
     }
   }
+
 }
