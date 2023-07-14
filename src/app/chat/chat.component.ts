@@ -10,6 +10,16 @@ import {MessageService} from "../services/message/message.service";
 export class ChatComponent {
   messages: Message[] = [];
   newMessageInput: string = "";
+  newMessageTag = {
+    value: "normal",
+    class: "btn btn-primary"
+  };
+
+  tags = [
+    {value: "normal", class: "btn btn-primary"},
+    {value: "warning", class: "btn btn-warning"},
+    {value: "danger", class: "btn btn-danger"}
+  ];
 
   constructor(
     private messageService: MessageService
@@ -22,8 +32,14 @@ export class ChatComponent {
   sendMessage() {
     if (this.newMessageInput === "") {
       alert("Please enter a message");
+      return;
     }
-    this.messageService.sendMessage(this.newMessageInput);
+    this.messageService.sendMessage(this.newMessageInput, this.newMessageTag.value);
     this.newMessageInput = "";
+  }
+
+
+  updateTag(newTag: any) {
+    this.newMessageTag = newTag;
   }
 }

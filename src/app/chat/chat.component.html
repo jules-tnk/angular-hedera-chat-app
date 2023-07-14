@@ -3,10 +3,22 @@
   <div *ngFor="let message of messages" class="row d-flex justify-content-center">
     <app-message [message]="message"></app-message>
   </div>
-  <form (ngSubmit)="sendMessage()">
+
+  <form (ngSubmit)="sendMessage()" >
     <div class="form-group">
-      <label for="content">Message:</label>
-      <input type="text" class="form-control" id="content" name="content" [(ngModel)]="newMessageInput" required>
+      <label for="content">Send message:</label>
+      <input type="text" class="form-control {{newMessageTag.class}}" id="content" name="content" [(ngModel)]="newMessageInput" required>
+      <div class="d-flex justify-content-center">
+        <button
+                *ngFor="let tag of tags"
+                class="{{tag.class}} m-1"
+                [value]="tag.value"
+                (click)="updateTag(tag)"
+                type="button"
+        >
+          {{tag.value}}
+        </button>
+      </div>
     </div>
     <button type="submit" class="btn btn-primary w-100">Send</button>
   </form>

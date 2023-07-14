@@ -29,11 +29,11 @@ MESSAGE_STORAGE_KEY = 'messages';
     return this.messages;
   }
 
-  sendMessage(value: string) {
+  sendMessage(content: string, tag: string) {
     let message = {
       accountId: 'current account id',
-      content: value,
-      tag: 'tag',
+      content: content,
+      tag: tag,
       time: new Date().toLocaleTimeString()
     }
 

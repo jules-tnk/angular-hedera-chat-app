@@ -2,5 +2,14 @@
   <div class="card-body">
     <h6 class="card-title">{{ message.accountId }} at {{message.time}}</h6>
     <p class="card-text">{{ message.content }}</p>
+    <p *ngIf="message.tag === 'normal'" class=" btn btn-primary">
+      Normal
+    </p>
+    <p *ngIf="message.tag === 'warning'" class=" btn btn-warning">
+      Warning
+    </p>
+    <p *ngIf="message.tag === 'danger'" class=" btn btn-danger">
+      Danger
+    </p>
   </div>
 </div>

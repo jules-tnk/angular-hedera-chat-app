@@ -9,6 +9,8 @@ import {Router} from "@angular/router";
 })
 export class LoginComponent {
   accountId: string = "";
+  privateKey: string = "";
+  publicKey: string = "";
 
   constructor(private authService: AuthService, private router: Router) {
   }
